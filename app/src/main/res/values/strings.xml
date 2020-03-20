@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Simple Golf Marker</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="new_game">Nouvelle partie</string>
+    <string name="_2">2</string>
+    <string name="minus_sign">-</string>
+    <string name="add_sign">+</string>
+</resources>
