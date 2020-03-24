@@ -7,7 +7,7 @@
     android:paddingTop="?attr/actionBarSize">
 
     <Button
-        android:id="@+id/menu-new-game"
+        android:id="@+id/menu_new_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="newGame"
@@ -31,6 +31,6 @@
         android:text="Historique"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu-new-game" />
+        app:layout_constraintTop_toBottomOf="@+id/menu_new_game" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
