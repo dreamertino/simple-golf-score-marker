@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Hole"
+        android:text="@string/hole"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="2"
+        android:text="@string/_2"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,6 +49,7 @@
         android:layout_marginRight="3dp"
         android:onClick="@string/new_game"
         android:text="@string/minus_sign"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/add"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score" />
@@ -60,6 +61,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
         android:text="@string/add_sign"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/minus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/minus" />
@@ -69,16 +71,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/previous_hole"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add" />
 
     <Button
         android:id="@+id/nextHole"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next_hole"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/previousHole"
         app:layout_constraintTop_toTopOf="@+id/previousHole" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nextHole" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
