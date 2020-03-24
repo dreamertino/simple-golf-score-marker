@@ -7,4 +7,6 @@
     <string name="_2">2</string>
     <string name="minus_sign">-</string>
     <string name="add_sign">+</string>
+    <string name="previous_hole">Previous Hole</string>
+    <string name="next_hole">Next Hole</string>
 </resources>
