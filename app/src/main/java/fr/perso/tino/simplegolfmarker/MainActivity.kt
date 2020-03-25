@@ -13,11 +13,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.i(null, "Database starts ...")
-
-
-        Log.i(null, "Database started")
-
     }
 
     /** Called when the user taps the New Game button */

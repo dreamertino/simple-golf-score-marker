@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import fr.perso.tino.simplegolfmarker.dao.SessionDao
+import fr.perso.tino.simplegolfmarker.model.HoleResult
 import fr.perso.tino.simplegolfmarker.model.SessionResult
 
-@Database(entities = arrayOf(SessionResult::class), version = 2)
+@Database(entities = arrayOf(SessionResult::class, HoleResult::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao
 
@@ -24,7 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java, "golf-marker-db"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 return instance
             }

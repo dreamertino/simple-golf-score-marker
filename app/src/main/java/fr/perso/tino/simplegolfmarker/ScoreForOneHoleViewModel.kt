@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import fr.perso.tino.simplegolfmarker.model.HoleResult
 import fr.perso.tino.simplegolfmarker.model.SessionResult
 import kotlinx.coroutines.launch
 
@@ -74,7 +75,8 @@ class ScoreForOneHoleViewModel(application: Application) : AndroidViewModel(appl
 
     fun saveCurrentSession() = viewModelScope.launch {
         Log.i("GameModel", "Enregistrement de la session ...")
-        val sToSave = scores.entries.map { it -> it.value }.toMutableList()
+        val sToSave =
+            scores.entries.map { it -> HoleResult(0, it.key, it.value, 0) }.toMutableList()
         repo.insertFullSession(SessionResult(0), sToSave)
         Log.i("GameModel", "Enregistrement OK")
     }

@@ -2,6 +2,7 @@ package fr.perso.tino.simplegolfmarker
 
 import androidx.room.Transaction
 import fr.perso.tino.simplegolfmarker.dao.SessionDao
+import fr.perso.tino.simplegolfmarker.model.HoleResult
 import fr.perso.tino.simplegolfmarker.model.SessionResult
 
 class SessionRepository(private val sessionDao: SessionDao) {
@@ -10,7 +11,7 @@ class SessionRepository(private val sessionDao: SessionDao) {
     }
 
     @Transaction
-    suspend fun insertFullSession(sessionResult: SessionResult, scores: List<Any>) {
-        insertSession(sessionResult)
+    suspend fun insertFullSession(sessionResult: SessionResult, scores: List<HoleResult>) {
+        sessionDao.insertSessionWithHole(sessionResult, scores)
     }
 }
