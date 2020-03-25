@@ -1,20 +1,17 @@
 package fr.perso.tino.simplegolfmarker.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Relation
 
 @Entity
 data class SessionResult(
-    @PrimaryKey(autoGenerate = true) val uid: Int
+    @PrimaryKey(autoGenerate = true) val uid: Long
 )
 
-data class SessionResultWithHolesUserInfo(
-    @Embedded val session: SessionResult,
-    @Relation(
-        parentColumn = "uid",
-        entityColumn = "sessionResultId"
-    )
-    val holesUserInfo: List<HoleUserInfo>
+@Entity
+data class HoleResult(
+    @PrimaryKey(autoGenerate = true) val uid: Long,
+    val holeNumber: Short,
+    val score: Int,
+    val sessionId: Long
 )

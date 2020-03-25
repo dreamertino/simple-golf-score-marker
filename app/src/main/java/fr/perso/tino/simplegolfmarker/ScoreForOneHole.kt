@@ -1,6 +1,7 @@
 package fr.perso.tino.simplegolfmarker
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,11 @@ class ScoreForOneHole : Fragment() {
                     viewModel.previousHole()
                 }
             }
+        }
+        Log.d(null, "Binding save button action")
+        binding.save.setOnClickListener {
+
+            viewModel.saveCurrentSession()
         }
         viewModel.currentScore.observe(viewLifecycleOwner, Observer { item ->
             // Update the UI
