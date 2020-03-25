@@ -25,7 +25,9 @@ class ScoreForOneHoleViewModel : ViewModel() {
 
     fun decreaseCurrentScore() {
         this.currentScore.value?.let { cV ->
-            currentScore.postValue(cV.minus(1))
+            if (cV > 1) {
+                currentScore.postValue(cV.minus(1))
+            }
         }
     }
 
@@ -46,6 +48,7 @@ class ScoreForOneHoleViewModel : ViewModel() {
 
     fun previousHole() {
         currentHole.value?.run {
+            currentScore.value?.let { scores[this] = it }
             this.dec().let { c ->
                 currentScore.postValue(
                     scores[c]
