@@ -1,6 +1,7 @@
 package fr.perso.tino.simplegolfmarker
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -32,5 +33,10 @@ abstract class AppDatabase : RoomDatabase() {
                 return instance
             }
         }
+    }
+
+    override fun close() {
+        Log.i("AppDatabase", "Fermeture bdd")
+        super.close()
     }
 }

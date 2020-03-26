@@ -16,21 +16,9 @@ class SessionRepository(private val sessionDao: SessionDao) {
     @Transaction
     suspend fun insertFullSession(sessionResult: SessionResult, scores: List<HoleResult>) {
         Log.d("Repo", "Tentative d'enregistré tout d'un coup")
-        sessionDao.getAllSessions().value?.let {
-            Log.d(
-                "Repo",
-                "${it.size} sessions avant tentative"
-            )
-        }
 
         sessionDao.insertWithHoleResults(sessionResult, scores)
         //Vérification
-        sessionDao.getAllSessions().value?.let {
-            Log.d(
-                "Repo",
-                "${it.size} sessions après tentative"
-            )
-        }
 
         Log.d("Repo", "Enregistrement dans la table session ...")
         val insertWithResult = sessionDao.insertWithResult(sessionResult)
@@ -40,15 +28,11 @@ class SessionRepository(private val sessionDao: SessionDao) {
             val holeResultId = sessionDao.insertWithResult(it)
             Log.i("Repo", "Enregistrement dans la table HoleResult OK (uid = $holeResultId)")
         }
-        sessionDao.getAllSessions().value.run {
-            Log.i("Repository", "${this?.size} sessions enregistrées")
-            this?.forEach {
-                Log.d("Repo", "Détail de la session ${it.uid} modified on ${it.lastModified}")
-            }
-        }
+
     }
 
     fun getAllSessions(): LiveData<List<SessionResult>> {
         return sessionDao.getAllSessions()
+
     }
 }
