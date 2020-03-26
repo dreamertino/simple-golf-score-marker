@@ -10,7 +10,7 @@ import fr.perso.tino.simplegolfmarker.model.SessionResult
 
 @Dao
 interface SessionDao {
-    @Query("SELECT * FROM SessionResult")
+    @Query("SELECT * FROM session")
     fun getAllSessions(): LiveData<List<SessionResult>>
 
     @Query("SELECT * FROM HoleResult WHERE sessionId = :sessionId ")
@@ -20,13 +20,25 @@ interface SessionDao {
     fun insertAll(vararg courses: SessionResult)
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insert(session: SessionResult)
+
+    @Insert
+    suspend fun insertWithResult(session: SessionResult): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(holeResult: HoleResult)
 
     @Insert
-    suspend fun insertSessionWithHole(sessionResult: SessionResult, holeResult: List<HoleResult>)
+    suspend fun insertWithResult(holeResult: HoleResult): Long
+
+    @Insert
+    suspend fun insertWithHoleResults(sessionResult: SessionResult, holeResult: List<HoleResult>)
+
+    @Insert
+    suspend fun insertHoleResult(vararg score: HoleResult)
+
+    @Insert
+    suspend fun insertAllHoleResults(h: List<HoleResult>)
 
 }

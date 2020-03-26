@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import fr.perso.tino.simplegolfmarker.dao.SessionDao
 import fr.perso.tino.simplegolfmarker.model.HoleResult
 import fr.perso.tino.simplegolfmarker.model.SessionResult
 
-@Database(entities = arrayOf(SessionResult::class, HoleResult::class), version = 1)
+@Database(entities = arrayOf(SessionResult::class, HoleResult::class), version = 3)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao
 

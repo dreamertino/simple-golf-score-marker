@@ -25,6 +25,7 @@ class ScoreForOneHoleViewModel(application: Application) : AndroidViewModel(appl
         Log.i("ScoreForOneHoleViewModl", "view created")
         val sessionDao = AppDatabase.getDatabase(application).sessionDao()
         repo = SessionRepository(sessionDao)
+        scores[1] = 2
     }
 
     fun increaseCurrentScore() {
@@ -75,6 +76,7 @@ class ScoreForOneHoleViewModel(application: Application) : AndroidViewModel(appl
 
     fun saveCurrentSession() = viewModelScope.launch {
         Log.i("GameModel", "Enregistrement de la session ...")
+        val session = SessionResult(0)
         val sToSave =
             scores.entries.map { it -> HoleResult(0, it.key, it.value, 0) }.toMutableList()
         repo.insertFullSession(SessionResult(0), sToSave)

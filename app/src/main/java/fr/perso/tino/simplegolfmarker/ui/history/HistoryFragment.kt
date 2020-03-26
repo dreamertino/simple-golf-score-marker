@@ -6,9 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import fr.perso.tino.simplegolfmarker.R
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import fr.perso.tino.simplegolfmarker.SessionListAdapter
+import fr.perso.tino.simplegolfmarker.databinding.HistoryFragmentBinding
 
 class HistoryFragment : Fragment() {
+    private var _binding: HistoryFragmentBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         fun newInstance() = HistoryFragment()
@@ -20,7 +25,14 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.history_fragment, container, false)
+        _binding = HistoryFragmentBinding.inflate(inflater, container, false)
+        val adapter = SessionListAdapter()
+        binding.recycleView.adapter = adapter
+        binding.recycleView.layoutManager = LinearLayoutManager(this.requireContext())
+        viewModel.sessions.observe(
+            viewLifecycleOwner,
+            Observer { sessions -> sessions?.let { adapter.setSessions(it) } })
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
