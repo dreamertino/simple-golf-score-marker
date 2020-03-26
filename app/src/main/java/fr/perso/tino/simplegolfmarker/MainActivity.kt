@@ -22,4 +22,11 @@ class MainActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
+    fun history(view: View) {
+        val intent = Intent(this, History::class.java).apply {
+
+        }
+        startActivity(intent)
+    }
 }

@@ -13,7 +13,7 @@ interface SessionDao {
     @Query("SELECT * FROM SessionResult")
     fun getAllSessions(): LiveData<List<SessionResult>>
 
-    @Query("SELECT * FROM HoleResult")
+    @Query("SELECT * FROM HoleResult WHERE sessionId = :sessionId ")
     fun getHRForSession(sessionId: Long): LiveData<List<HoleResult>>
 
     @Insert
