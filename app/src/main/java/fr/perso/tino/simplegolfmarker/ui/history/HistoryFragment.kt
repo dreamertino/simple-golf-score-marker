@@ -1,6 +1,7 @@
 package fr.perso.tino.simplegolfmarker.ui.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class HistoryFragment : Fragment() {
 
     companion object {
         fun newInstance() = HistoryFragment()
+        const val TAG = "History fragment"
     }
 
     private val viewModel: HistoryViewModel by activityViewModels()
@@ -31,13 +33,11 @@ class HistoryFragment : Fragment() {
         binding.recycleView.layoutManager = LinearLayoutManager(this.requireContext())
         viewModel.sessions.observe(
             viewLifecycleOwner,
-            Observer { sessions -> sessions?.let { adapter.setSessions(it) } })
+            Observer { sessions ->
+                sessions ?: Log.w(TAG, "Pas de session trouvées en base de données !!! Bizarre")
+                sessions?.let { adapter.setSessions(it) }
+            })
         return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
     }
 
 }

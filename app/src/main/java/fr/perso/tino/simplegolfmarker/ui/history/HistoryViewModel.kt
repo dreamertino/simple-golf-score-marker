@@ -23,6 +23,7 @@ class HistoryViewModel(application: Application) : AndroidViewModel(application)
         val sessionDao = AppDatabase.getDatabase(application).sessionDao()
         repo = SessionRepository(sessionDao)
         Log.i("History", "Chargement des sessions ...")
+
         sessions = repo.getAllSessions()
         Log.i("History", "Chargement des sessions OK")
         GlobalScope.launch {

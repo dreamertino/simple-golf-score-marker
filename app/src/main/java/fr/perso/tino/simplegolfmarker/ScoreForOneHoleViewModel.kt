@@ -20,7 +20,6 @@ class ScoreForOneHoleViewModel(application: Application) : AndroidViewModel(appl
     private val repo: SessionRepository
 
 
-
     init {
         Log.i("ScoreForOneHoleViewModl", "view created")
         val sessionDao = AppDatabase.getDatabase(application).sessionDao()
@@ -76,6 +75,9 @@ class ScoreForOneHoleViewModel(application: Application) : AndroidViewModel(appl
 
     fun saveCurrentSession() = viewModelScope.launch {
         Log.i("GameModel", "Enregistrement de la session ...")
+        if (currentHole.value != null && currentScore.value != null) {
+            currentHole.value?.let { h -> currentScore.value?.let { scores[h] = it } }
+        }
         val session = SessionResult(0)
         val sToSave =
             scores.entries.map { it -> HoleResult(0, it.key, it.value, 0) }.toMutableList()
