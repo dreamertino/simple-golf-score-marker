@@ -1,17 +1,17 @@
 package fr.perso.tino.simplegolfmarker.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import fr.perso.tino.simplegolfmarker.model.HoleResult
 import fr.perso.tino.simplegolfmarker.model.SessionResult
+import fr.perso.tino.simplegolfmarker.model.SessionResultWithHoleResults
 
 @Dao
 interface SessionDao {
+    @Transaction
     @Query("SELECT * FROM session")
-    fun getAllSessions(): LiveData<List<SessionResult>>
+    fun getAllSessions(): LiveData<List<SessionResultWithHoleResults>>
+
 
     @Query("SELECT * FROM HoleResult WHERE sessionId = :sessionId ")
     fun getHRForSession(sessionId: Long): LiveData<List<HoleResult>>

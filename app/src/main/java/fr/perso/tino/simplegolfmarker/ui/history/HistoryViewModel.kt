@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asFlow
 import fr.perso.tino.simplegolfmarker.AppDatabase
 import fr.perso.tino.simplegolfmarker.SessionRepository
-import fr.perso.tino.simplegolfmarker.model.SessionResult
+import fr.perso.tino.simplegolfmarker.model.SessionResultWithHoleResults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class HistoryViewModel(application: Application) : AndroidViewModel(application) {
     private val repo: SessionRepository
-    val sessions: LiveData<List<SessionResult>>
+    val sessions: LiveData<List<SessionResultWithHoleResults>>
 
     init {
         Log.i("History", "view created")
@@ -30,10 +30,25 @@ class HistoryViewModel(application: Application) : AndroidViewModel(application)
             withContext(Dispatchers.Main) {
                 sessions.asFlow().first().let {
                     Log.i(null, "Sessions trouvées !!!")
-                    it.forEach { e -> Log.i(null, "Session (uid = ${e.uid})") }
+                    it.forEach { e ->
+                        run {
+                            Log.i(null, "Session (uid = ${e.sessionResult.uid})")
+                            e.holeResults.forEach {
+                                Log.d(
+                                    TAG,
+                                    "hole ${it.holeNumber} result ${it.score}"
+                                )
+                            }
+                        }
+                    }
                 }
-            }
-        }
 
+            }
+
+        }
+    }
+
+    companion object {
+        const val TAG = "HistoryViewModel"
     }
 }

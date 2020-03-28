@@ -6,6 +6,7 @@ import androidx.room.Transaction
 import fr.perso.tino.simplegolfmarker.dao.SessionDao
 import fr.perso.tino.simplegolfmarker.model.HoleResult
 import fr.perso.tino.simplegolfmarker.model.SessionResult
+import fr.perso.tino.simplegolfmarker.model.SessionResultWithHoleResults
 
 class SessionRepository(private val sessionDao: SessionDao) {
     suspend fun insertSession(sessionResult: SessionResult) {
@@ -15,10 +16,7 @@ class SessionRepository(private val sessionDao: SessionDao) {
 
     @Transaction
     suspend fun insertFullSession(sessionResult: SessionResult, scores: List<HoleResult>) {
-        Log.d("Repo", "Tentative d'enregistré tout d'un coup")
-
-        sessionDao.insertWithHoleResults(sessionResult, scores)
-        //Vérification
+        Log.d("SessionRepository", "Tentative d'enregistré tout d'un coup")
 
         Log.d("Repo", "Enregistrement dans la table session ...")
         val insertWithResult = sessionDao.insertWithResult(sessionResult)
@@ -26,12 +24,15 @@ class SessionRepository(private val sessionDao: SessionDao) {
 
         scores.onEach { s -> s.sessionId = insertWithResult }.forEach {
             val holeResultId = sessionDao.insertWithResult(it)
-            Log.i("Repo", "Enregistrement dans la table HoleResult OK (uid = $holeResultId)")
+            Log.i(
+                "Repo",
+                "Enregistrement dans la table HoleResult OK (uid = $holeResultId , score = ${it.score}, holeNumber = ${it.holeNumber})"
+            )
         }
 
     }
 
-    fun getAllSessions(): LiveData<List<SessionResult>> {
+    fun getAllSessions(): LiveData<List<SessionResultWithHoleResults>> {
         return sessionDao.getAllSessions()
 
     }
